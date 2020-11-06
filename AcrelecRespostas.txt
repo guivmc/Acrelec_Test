@@ -1,0 +1,102 @@
+
+1-R: Stack: a data structure where the first variable stored is the last to be removed (FILO).
+Queue: a data strucutre where the last variable stored is the first to be removed (FIFO).
+
+2-R: An array has a fixed amount of memory reserverd to it, but a list does not have
+this limitation. You should use an array when you know the amount of memory needed for 
+the operantion and a list when you don't know.
+
+3-R: It is when a hash function generates a repeted index key.
+
+//Codes:
+
+ class Program
+    {
+
+        static bool IsEven( int N ) => N % 2 == 0;
+
+        static bool IsNested( string s )
+        {
+            bool isNested = true;
+            List<char> stack = new List<char>();
+
+            for( int i = 0; i < s.Length && isNested; i++ )
+            {
+                switch( s[i] )
+                {
+                    case '(':
+                    case '[':
+                    case '{':
+                        stack.Add( s[i] );
+                        break;
+
+                    case ')':
+                        if( stack.ElementAt( stack.Count - 1 ).Equals( '(' ) )
+                            isNested = true;
+                        else
+                            isNested = false;
+                        break;
+                    case ']':
+                        if( stack.ElementAt( stack.Count - 1 ).Equals( '[' ) )
+                            isNested = true;
+                        else
+                            isNested = false;
+                        break;
+                    case '}':
+                        if( stack.ElementAt( stack.Count - 1 ).Equals( '{' ) )
+                            isNested = true;
+                        else
+                            isNested = false;
+                        break;
+                    default:
+                        break;
+                }
+
+                if( stack.Count == 0 )
+                    return false;
+            }
+
+            return isNested;
+        }
+
+        static int ZerosInBinary( int N )
+        {
+            string binary = Convert.ToString( N, 2 );
+
+            int amt = 0;
+
+            string[] zeros = binary.Split( '1' );
+
+            for( int i = 1; i < zeros.Length - 1; i++ )
+            {
+                if( zeros[i].Length > amt )
+                    amt = zeros[i].Length;
+            }
+
+            return amt;
+        }
+
+        static void Main( string[] args )
+        {
+            Console.WriteLine( " Enter a int: " );
+
+            int n = Convert.ToInt32( Console.ReadLine() );
+
+            Console.WriteLine( IsEven( n ) ? "It is an even int." : "It is an odd int." );
+
+            Console.WriteLine( " Enter a string: " );
+
+            string s = Console.ReadLine();
+
+            Console.WriteLine( IsNested( s ) ? "It is nested." : "It is not nested." );
+
+            Console.WriteLine( " Enter a int: " );
+
+            int n2 = Convert.ToInt32( Console.ReadLine() );
+
+            Console.WriteLine( ZerosInBinary( n2 ) );
+
+
+
+        }
+    }
